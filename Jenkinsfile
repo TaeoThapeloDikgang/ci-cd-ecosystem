@@ -2,15 +2,14 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "taeothapelodikgang/ci-cd-ecosystem-java-app:latest"
+        DOCKER_IMAGE = "taeothapelodikgang/ci-cd-ecosystem-java-app"
         VERSION = "${env.BUILD_ID}"
-        DOCKER_CREDENTIALS = credentials('docker-hub-creds')
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/your-username/ci-cd-java-demo.git'
+                git 'https://github.com/TaeoThapeloDikgang/ci-cd-ecosystem.git'
             }
         }
 
@@ -34,10 +33,10 @@ pipeline {
         stage('Update Kubernetes YAML') {
             steps {
                 script {
-                    sh "sed -i 's|image: .*|image: ${DOCKER_IMAGE}:${VERSION}|' k8s/deployment.yaml"
+                    sh "sed -i 's|image: .*|image: ${DOCKER_IMAGE}:${VERSION}|' k8s/ci-cd-ecosystem-deployment.yaml"
                     sh "git config user.name 'jenkins'"
                     sh "git config user.email 'jenkins@example.com'"
-                    sh "git add k8s/deployment.yaml"
+                    sh "git add k8s/ci-cd-ecosystem-deployment.yaml"
                     sh "git commit -m 'Update image to ${VERSION}' || echo 'No changes'"
                     sh "git push origin main"
                 }
