@@ -21,7 +21,7 @@ pipeline {
 
         stage('Test Docker Credentials') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'docker_hub_creds', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                withCredentials([usernamePassword(credentialsId: 'docker_hub_creds2', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
                     sh 'echo "DockerHub use"'
                     sh 'echo "DockerHub user is $USER"'
                     sh 'echo "Password is set (hidden for security)"'
@@ -32,7 +32,7 @@ pipeline {
         stage('Docker Build & Push') {
             steps {
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-creds') {
+                    docker.withRegistry('https://index.docker.io/v1/', 'docker_hub_creds2') {
                         def app = docker.build("${DOCKER_IMAGE}:${VERSION}")
                         app.push()
                     }
