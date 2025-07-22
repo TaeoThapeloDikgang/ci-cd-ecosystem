@@ -1,0 +1,7 @@
+services:
+  ci-cd-ecosystem-java-app:
+    image: taeothapelodikgang/ci-cd-ecosystem-java-app
+    container_name: ci-cd-ecosystem-java-app
+    ports:
+      - "7080:8080"
+    restart: unless-stopped
