@@ -19,6 +19,15 @@ pipeline {
             }
         }
 
+        stage('Test Docker Credentials') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-creds', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    sh 'echo "DockerHub user is $USER"'
+                    sh 'echo "Password is set (hidden for security)"'
+                }
+            }
+        }
+
         stage('Docker Build & Push') {
             steps {
                 script {
