@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: demo-app
-          image: taeothapelodikgang/ci-cd-ecosystem-java-app:41
+          image: taeothapelodikgang/ci-cd-ecosystem-java-app:42
           ports:
             - containerPort: 8080
 
