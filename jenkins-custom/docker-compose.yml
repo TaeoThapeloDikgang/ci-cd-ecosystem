@@ -1,6 +1,9 @@
 services:
   jenkins-ci:
-    image: taeothapelodikgang/jenkins-ci
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: taeothapelodikgang/jenkins-ci:latest
     container_name: jenkins-ci
     ports:
       - "8080:8080"

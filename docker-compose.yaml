@@ -1,6 +1,6 @@
 services:
   ci-cd-ecosystem-java-app:
-    image: taeothapelodikgang/ci-cd-ecosystem-java-app
+    image: taeothapelodikgang/ci-cd-ecosystem-java-app:latest
     container_name: ci-cd-ecosystem-java-app
     ports:
       - "7080:8080"

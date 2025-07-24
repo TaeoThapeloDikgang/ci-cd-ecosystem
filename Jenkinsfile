@@ -7,11 +7,6 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-              git branch: 'main', url: 'https://github.com/TaeoThapeloDikgang/ci-cd-ecosystem.git'
-            }
-        }
 
         stage('Build') {
             steps {
@@ -19,20 +14,16 @@ pipeline {
             }
         }
 
-        stage('Test Docker Credentials') {
+        stage('Test') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'docker_hub_creds2', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
-                    sh 'echo "DockerHub use"'
-                    sh 'echo "DockerHub user is $USER"'
-                    sh 'echo "Password is set (hidden for security)"'
-                }
+                sh './mvnw test'
             }
         }
 
         stage('Docker Build & Push') {
             steps {
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'docker_hub_creds2') {
+                    docker.withRegistry('https://index.docker.io/v1/', 'docker_hub_credentials') {
                         def app = docker.build("${DOCKER_IMAGE}:${VERSION}")
                         app.push()
                     }
@@ -44,13 +35,23 @@ pipeline {
             steps {
                 script {
                     sh "sed -i 's|image: .*|image: ${DOCKER_IMAGE}:${VERSION}|' k8s/ci-cd-ecosystem-deployment.yaml"
-                    sh "git config user.name 'jenkins'"
-                    sh "git config user.email 'jenkins@example.com'"
-                    sh "git add k8s/ci-cd-ecosystem-deployment.yaml"
-                    sh "git commit -m 'Update image to ${VERSION}' || echo 'No changes'"
-                    sh "git push origin main"
                 }
             }
+        }
+
+        stage('Git Push to GitHub') {
+          steps {
+            withCredentials([usernamePassword(credentialsId: 'github_creds', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_TOKEN')]) {
+              sh '''
+                git config user.name 'jenkins'
+                git config user.email 'jenkins@example.com'
+                git add k8s/ci-cd-ecosystem-deployment.yaml
+                git commit -m 'Update image to ${VERSION}' || echo 'No changes'
+                git remote set-url origin https://$GIT_USER:$GIT_TOKEN@github.com/TaeoThapeloDikgang/ci-cd-ecosystem.git
+                git push origin main
+              '''
+            }
+          }
         }
     }
 }
