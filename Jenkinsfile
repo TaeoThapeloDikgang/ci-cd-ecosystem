@@ -7,6 +7,13 @@ pipeline {
     }
 
     stages {
+
+        stage('Git Checkout') {
+            steps {
+              git branch: 'main', url: 'https://github.com/TaeoThapeloDikgang/ci-cd-ecosystem.git'
+            }
+        }
+
         stage('Build') {
             steps {
                 sh './mvnw clean package -DskipTests'
