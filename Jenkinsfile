@@ -8,6 +8,12 @@ pipeline {
 
     stages {
 
+    stage('Git version') {
+                steps {
+                    sh 'git --version'
+                }
+            }
+
         stage('Git Checkout') {
             steps {
                 sh 'git clone https://github.com/TaeoThapeloDikgang/ci-cd-ecosystem.git'
