@@ -8,6 +8,12 @@ pipeline {
 
     stages {
 
+        stage('Git Version') {
+            steps {
+              sh 'git --version'
+            }
+        }
+
         stage('Git Checkout') {
             steps {
               git branch: 'main', url: 'https://github.com/TaeoThapeloDikgang/ci-cd-ecosystem.git'
