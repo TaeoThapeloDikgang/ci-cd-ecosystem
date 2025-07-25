@@ -49,6 +49,7 @@ pipeline {
           steps {
             withCredentials([usernamePassword(credentialsId: 'github_creds', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_TOKEN')]) {
               sh '''
+                git checkout main
                 git pull origin main
                 git config user.name 'jenkins'
                 git config user.email 'jenkins@example.com'
