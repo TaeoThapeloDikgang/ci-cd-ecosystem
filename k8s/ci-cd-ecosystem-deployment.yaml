@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: ci-cd-ecosystem-java-app
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: ci-cd-ecosystem-java-app
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: ci-cd-ecosystem-java-app
-          image: taeothapelodikgang/ci-cd-ecosystem-java-app:second
+          image: taeothapelodikgang/ci-cd-ecosystem-java-app:first
           ports:
             - containerPort: 7080
 ---
