@@ -15,6 +15,6 @@ public class CiCdEcosystemApplication {
 
 	@GetMapping("/")
 	public String home() {
-		return "Hello from Java CI/CD App! first version";
+		return "Hello from Java CI/CD App! second version";
 	}
 }
