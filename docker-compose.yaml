@@ -1,6 +1,6 @@
 services:
   ci-cd-ecosystem-java-app:
-    image: taeothapelodikgang/ci-cd-ecosystem-java-app:second
+    image: taeothapelodikgang/ci-cd-ecosystem-java-app:third
     build:
       context: .
       dockerfile: Dockerfile
