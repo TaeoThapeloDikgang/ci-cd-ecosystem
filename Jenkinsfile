@@ -8,9 +8,9 @@ pipeline {
 
     stages {
 
-        stage('Git Checkout') {
+        stage('Git Version') {
             steps {
-              git branch: 'main', url: 'https://github.com/TaeoThapeloDikgang/ci-cd-ecosystem.git'
+              sh 'git --version'
             }
         }
 
@@ -49,6 +49,8 @@ pipeline {
           steps {
             withCredentials([usernamePassword(credentialsId: 'github_creds', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_TOKEN')]) {
               sh '''
+                git checkout main
+                git pull origin main
                 git config user.name 'jenkins'
                 git config user.email 'jenkins@example.com'
                 git add k8s/ci-cd-ecosystem-deployment.yaml
