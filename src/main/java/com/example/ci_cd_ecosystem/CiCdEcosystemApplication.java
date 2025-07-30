@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CiCdEcosystemApplication {
 
+	String appTag = System.getenv("APP_TAG");
+
 	public static void main(String[] args) {
 		SpringApplication.run(CiCdEcosystemApplication.class, args);
 	}
 
 	@GetMapping("/")
 	public String home() {
-		return "Hello from Java CI/CD App! third version";
+		return "Hello from Java CI/CD App! " + appTag + " version";
 	}
 }

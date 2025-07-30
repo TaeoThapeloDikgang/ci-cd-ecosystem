@@ -14,9 +14,16 @@ spec:
     spec:
       containers:
         - name: ci-cd-ecosystem-java-app
-          image: taeothapelodikgang/ci-cd-ecosystem-java-app:third
+          env:
+            - name: APP_TAG
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: APP_TAG
+          image: taeothapelodikgang/ci-cd-ecosystem-java-app:fourth
           ports:
             - containerPort: 7080
+
 ---
 apiVersion: v1
 kind: Service
