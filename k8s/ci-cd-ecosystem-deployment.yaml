@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: ci-cd-ecosystem-java-app
-          image: taeothapelodikgang/ci-cd-ecosystem-java-app:sixth
+          image: taeothapelodikgang/ci-cd-ecosystem-java-app:seventh
           ports:
             - containerPort: 7080
 
