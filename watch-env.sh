@@ -28,10 +28,11 @@ while true; do
     echo "✅ Updated app tag in $DEPLOYMENT_FILE to $IMAGE_NAME:$current_tag"
     last_tag="$current_tag"
 
-    # Optional: auto commit to Git
-    # git add "$DEPLOYMENT_FILE"
-    # git commit -m "Update image tag to $current_tag"
-    # git push origin main
+    # do docker compose build and push
+     docker compose build && docker compose push
+     git add "$DEPLOYMENT_FILE"
+     git commit -m "Update image tag to $current_tag"
+     git push origin main
   fi
 
   sleep 2
