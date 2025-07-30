@@ -20,7 +20,7 @@ spec:
                 configMapKeyRef:
                   name: app-config
                   key: APP_TAG
-          image: taeothapelodikgang/ci-cd-ecosystem-java-app:fifth
+          image: taeothapelodikgang/ci-cd-ecosystem-java-app:sixth
           ports:
             - containerPort: 7080
 
