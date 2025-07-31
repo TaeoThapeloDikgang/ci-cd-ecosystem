@@ -6,6 +6,12 @@ pipeline {
         VERSION = "${env.BUILD_ID}" // fallback if APP_TAG is missing
     }
 
+    stage('Git Version') {
+        steps {
+          sh 'git --version'
+        }
+    }
+
     stages {
         stage('Load .env') {
             steps {
@@ -23,23 +29,12 @@ pipeline {
             }
         }
 
-        stage('Git Version') {
-            steps {
-              sh 'git --version'
-            }
-        }
-
-        stage('Build') {
-            steps {
-                sh './mvnw clean package -DskipTests'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                sh './mvnw test'
-            }
-        }
+//         redundant: the build is happening inside the container
+//         stage('Build') {
+//             steps {
+//                 sh './mvnw clean package -DskipTests'
+//             }
+//         }
 
         stage('Docker Build & Push') {
             steps {
@@ -68,7 +63,7 @@ pipeline {
                       git pull origin main
                       git config user.name 'jenkins'
                       git config user.email 'jenkins@example.com'
-                      git add k8s/ci-cd-ecosystem-deployment.yaml
+                      git add .
                       git commit -m "Update image to ${APP_TAG}" || echo "No changes"
                       git remote set-url origin https://$GIT_USER:$GIT_TOKEN@github.com/TaeoThapeloDikgang/ci-cd-ecosystem.git
                       git push origin main
