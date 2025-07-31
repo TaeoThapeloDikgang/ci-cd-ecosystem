@@ -40,7 +40,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', 'docker_hub_credentials') {
-                        def app = docker.build("${DOCKER_IMAGE}:${APP_TAG}")
+                        def app = docker.build("${DOCKER_IMAGE}:${APP_TAG}", "--build-arg APP_TAG=${APP_TAG}")
                         app.push()
                     }
                 }
