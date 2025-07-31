@@ -1,11 +1,11 @@
 services:
   ci-cd-ecosystem-java-app:
     image: taeothapelodikgang/ci-cd-ecosystem-java-app:${APP_TAG}
-    environment:
-      APP_TAG: ${APP_TAG}
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        APP_TAG: ${APP_TAG}
     container_name: ci-cd-ecosystem-java-app
     ports:
       - "7082:7080"
