@@ -29,8 +29,9 @@ while true; do
     last_tag="$current_tag"
 
     # do docker compose build and push
-     docker compose build && docker compose push
-     git add "$DEPLOYMENT_FILE"
+#     docker compose build && docker compose push
+#     git add "$DEPLOYMENT_FILE"
+     git add .
      git commit -m "Update image tag to $current_tag"
      git push origin main
   fi
