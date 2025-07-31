@@ -6,13 +6,13 @@ pipeline {
         VERSION = "${env.BUILD_ID}" // fallback if APP_TAG is missing
     }
 
-    stage('Git Version') {
-        steps {
-          sh 'git --version'
-        }
-    }
-
     stages {
+        stage('Git Version') {
+            steps {
+              sh 'git --version'
+            }
+        }
+
         stage('Load .env') {
             steps {
                 script {
